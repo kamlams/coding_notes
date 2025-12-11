@@ -1,0 +1,20 @@
+https://git-scm.com/cheat-sheet
+add 工作区->暂存区
+commit 暂存区->本地仓库
+push 本地仓库->远程仓库
+
+git init  创建仓库，会在当前目录中创建一个隐藏文件夹.git
+git add 文件
+git add . 把当前文件夹下所有文件都加入到暂存区
+git commit -m "提交说明"
+git branch -M main
+git remote add origin 地址.git
+git push -u origin main 设置默认分支，origin是远程仓库的默认名称；main是分支
+之后就可以直接git push了
+git push 上传远程代码并合并
+git pull 下载远程代码并合并
+git pull --rebase origin main
+
+git clone 地址  将远程仓库拷贝到本地仓库
+git status 查看 Git 仓库当前状态
+git log 查看历史提交记录
