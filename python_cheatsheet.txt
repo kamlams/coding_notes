@@ -1,0 +1,26 @@
+引入包：
+import 包名
+import 包名 as 别名
+from 包名 import 函数名
+from 报名 import 函数a, 函数b, 函数c
+from 包名 import *
+from . import 函数名 # 当前包
+from .a import 函数名
+from ..a import 函数名
+
+python的输出
+print("abc") 用单引号亦可
+python的输入
+input()
+input("xxx") xxx是提示语句
+python的语句块通过缩进实现
+python的注释方法：#单行注释 ''' 多行注释 ''' （用双引号亦可）
+
+python的数据结构
+list tuple dict set
+list访问数据：ls[1], ls[-1], ls[1:], ls.append(e), ls.extend(ls2), del ls[1], len(ls), ls1 + ls2 (拼接)
+ls * 4 (元素重复4次), e in ls (判断元素e是否在ls内), for e in ls:
+max(ls), min(ls)
+python函数：
+def 函数名(...):
+  内容
