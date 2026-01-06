@@ -1,12 +1,165 @@
 https://git-scm.com/cheat-sheet
+https://www.runoob.com/git/git-tutorial.html
+https://www.runoob.com/manual/github-git-cheat-sheet.pdf
+
+一、开始：init clone
+git init  # 创建仓库，会在当前目录中创建一个隐藏文件夹.git
+git clone <url>  # 克隆远程仓库到本地
+git init <project-name>  ## 创建仓库并指定名称
+二、准备提交：add mv rm reset status
+git add <file>  # 添加未跟踪的文件或未暂存的改动
+git add .  # （当前目录下）添加所有未跟踪的文件和未暂存的改动
+git add -p  # 暂存一个文件的指定部分（-p是--patch的缩写）
+git mv <old> <new>  # 移动文件
+git rm <file>  # 删除文件
+git rm --cached <file>  # 让git不再跟踪某个文件而不删除它（可用于本来不想跟踪的文件）
+git reset <file>  # 将一个文件移出暂存区，变成未暂存状态
+git reset  # 清空暂存区，改动还在，但变成未暂存
+git status  # 查看自己add了什么的东西
+三、作出提交：commit
+git commit  # 提交（并打开文本编辑器写信息）
+git commit -m 'message'  # 提交已在暂存区里的修改
+git commit -am 'message' # 自动add已被git跟踪的文件，不会add新文件，然后立即commit
+四、切换分支：switch/checkout branch
+git switch <name>  # 切换分支
+git checkout <name>  # 同上
+git switch -c <name>  # 创建分支
+git checkout -b <name>  # 同上
+git branch  # 列出分支
+git branch --soft=-committerdate  # 按最近提交时间列出分支
+git branch -d <name>  # 非强制性删除分支
+git branch -D <name>  # 强制性删除分支
+五、对比变动：diff
+git diff HEAD  # 对比所有改动
+git diff --staged  # 对比已暂存的改动
+git diff  # 对比未暂存的改动
+六、对比commits：show diff
+git show <commit>  # 对比一个commit和它的parent
+git diff <commit> <commit>  # 对比两个commits
+git diff <commit> <file>  # 对比一个文件和它位于某个commit中的版本的差异
+git diff <commit> --stat  # 查看一个对比的总结
+git show <commit> --stat  # 同上
+
+可用以下方式提及一个<commit>：
+一个分支：main
+一个标签：v0.1
+一个commit ID：3e887ab
+一个远程分支：origin/main
+当前commit：HEAD
+倒数第3次commit：HEAD^^^ 或 HEAD~3
+
+七、放弃改动：restore checkout reset clean stash
+git restore <file>  # 删除一个文件中的未暂存的改动
+git checkout <file>  # 同上
+git restore --staged --worktree <file>  # 删除一个文件中的已暂存与未暂存的改动
+git checkout HEAD <file>  # 同上
+git reset --hard  # 删除所有已暂存与未暂存的改动
+git clean  # 删除未跟踪文件
+git stash  # 临时保存所有已暂存与未暂存的改动，但不提交当前的改动，方便切换任务或分支
+八、编辑历史：reset rebase reflog reset commit
+git reset HEAD^  # 撤销最近的提交（工作目录保持不变）
+git rebase -i HEAD~6  # 将最近5次的提交合成一个（然后如果你想和之前的一个commit合在一起，就将pick改为fixup）
+git reflog BRANCHNAME  # 撤销一个失败的rebase，然后在reflog里手动找到正确的提交ID，再运行下面的指令
+git reset --hard <commit>  #
+git commit --amend  # 改动一个提交的信息（或者添加一个忘记添加的文件）
+九、代码考古：log blame
+git log main  # 查看一个分支的历史
+git log --graph main  # 同上
+git log --oneline  # 同上
+git log <file>  # 展示所有对某个文件进行改动的commit
+git log --follow <file>  # 展示所有对某个文件进行改动的commit，包括它被重命名之前的改动
+git log -G banana  # 查看添加或移除某个文本的所有commit
+git blame <file>  # 查找最后改动某个文件的人
+十、合并分支：switch rebase merge commit cherry-pick
+1. rebase：移除banana分支，将banana分支接到main端
+git switch banana
+git rebase main
+2. merge: 将banana分支端和main端接合为新节点
+git switch main
+git merge banana
+3. squash: 在main端添加一个节点，该节点是banana分支所有commit内容的结合
+git switch main
+git merge --squash banana
+git commit
+4. Bring a branch up to date with another branch (aka "fast-forward merge"):
+git switch main
+git merge banana
+5. 将一个commit复制到当前分支
+git cherry-pick <commit>
+十一、恢复一个旧文件：checkout restore
+git checkout <commit> <file>  # 恢复成从另一提交里的文件版本
+git restore <file> --source <commit>  # 同上
+十二、添加一个远程仓库：remote
+git remote add <name> <url>
+十二、将改动push到远程仓库：push
+git push origin main  # 将main分支push到远程origin
+git push  # 将当前分支push到它远程的"跟踪分支"
+git push -u origin <name>  # push一个之前从未push过的分支
+git push --force-with-lease  # 强制push
+git push --tags  # push 标签
+十三、将改动pull到本地仓库：fetch pull
+git fetch origin main  # fetch改动（但不改动本地分支）
+git pull --rebase  # fetch改动然后rebase当前分支
+git pull origin main  # fetch改动然后将改动和当前分支merge
+git pull # 同上
+十四、配置git
+git config user.name 'Your Name'  # 配置config选项（这里在配置用户名）
+git config --global ...  # 全局配置config选项
+git config alias.st status  # 添加一个别名
+man git-config  # 查看所有可配置的选项
+git config --global user.name 'Your Name'  ##
+git config --global user.email 'Your Email Address'  ##
+十五、重要文件
+.git/config  # 本地git config
+~/.gitconfig  # 全局git config
+.gitignore  # 被忽略的文件列表
+
+一、git的基础概念
+git是分布式的，把内容按元数据方式存储，没有全局版本号，使用SHA-1哈希算法存储
+工作区：我们能直接看到的目录
+暂存区(stage)：一般存放在.git/index中
+版本库：工作区的隐藏目录.git，这个不算工作区
+HEAD是指向分支的一个"游标"，出现HEAD的地方可用分支的名称来替换
 add 工作区->暂存区
 commit 暂存区->本地仓库
 push 本地仓库->远程仓库
+二、git配置
+用git config指令配置或读取工作环境变量。
+环境变量可存放在以下文件中：
+/etc/gitconfig文件：系统中对所有用户都普遍使用的配置，git config --system读写该文件
+~/.gitconfig文件：对当前用户适用的配置，git config --global读写该文件
+工作目录中的.git/config文件：对当前项目适用的配置
+每个级别的配置都会覆盖上层的相同配置，故.git/config里的配置会覆盖/etc/gitconfig中的同名变量
 
-git init  创建仓库，会在当前目录中创建一个隐藏文件夹.git
-git add 文件
-git add . 把当前文件夹下所有文件都加入到暂存区
-git commit -m "提交说明"
+配置用户信息
+git config --global user.name "xxx"
+git config --global user.email xxx@xx.com
+如果要在某个特定项目中使用其他名字或邮箱地址，只需去掉--global选项重新配置即可，新的设定保存在当前项目的.git/config文件里。
+
+查看配置信息
+git config --list
+有时候会看到重复的变量名，那就说明它们来自不同的配置文件，不过最终 Git 实际采用的是最后一个。
+也可这样做：
+vim ~/.gitconfig
+git config user.name  # 也可直接查询某个环境变量的设定
+git --version  # 查看git版本
+三、git工作流程
+1. 克隆仓库 (clone)
+2. 创建新分支，以避免直接在main或master分支上开发 (switch/checkout)
+3. 将文件添加到暂存区 (add)
+4. 将暂存区的更改提交到本地仓库 (commit)
+5. 拉取最新更改 (pull)，在推送本地更改前，最好从远程仓库拉取最新的更改以避免冲突
+6. 推送更改到远程仓库(push)
+7. 创建pull request（PR）：邀请团队成员进行代码审查。PR 合并后，你的更改就会合并到主分支
+8. 合并更改：在 PR 审核通过并合并后，可以将远程仓库的主分支合并到本地分支
+git checkout main
+git pull origin main
+git merge new-feature
+9. 删除分支
+git branch -d <new-feature>  # 删除分支
+git push origin --delete <new-feature>  # 从远程仓库删除分支
+
+
 git branch -M main
 git remote add origin 地址.git
 git push -u origin main 设置默认分支，origin是远程仓库的默认名称；main是分支
@@ -22,3 +175,25 @@ git log 查看历史提交记录
 移除对在新建.gitignore之前就跟踪到的文件的跟踪
 git rm -r --cached 文件名（可以使用通配符，比如*/__pycache__/）
 git check-ignore -v 文件名 检查有没有被ignore，如果有，则输出对应的ignore规则
+
+git config --global user.name "你的名字"
+git config --global user.email "你的邮箱@example.com"
+git config --global --list
+
+git config user.name "你的名字"
+git config user.email "你的邮箱@example.com"
+
+echo "# routing_decision" >> README.md
+
+平时使用的流程是
+git add
+git commit
+git push
+
+第一次使用的流程是
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin 网址.git
+git push -u origin main
