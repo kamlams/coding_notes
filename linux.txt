@@ -1,4 +1,4 @@
-
+https://linuxsurvival.com/command-list/
 https://www.runoob.com/linux/linux-tutorial.html
 ls  # 输出当前目录下的文件名称
 ls -l  # 输出当前目录下的文件的信息 (long listing)
@@ -11,7 +11,9 @@ cd ..  # 切换到父目录
 cd  # 切换到自己的home目录（也可用cd ~）
 pwd  # 输出工作目录
 cp <file> <dir>  # 复制文件
+cp -r <dir1> <dir2> # 复制，整个目录下的文件
 rm <file>  # 删除文件
+rm -r <dir>  # 删除目录及其下子目录和文件
 rmdir <dir>  # 删除空目录
 chmod o+x <file>  # 修改权限：给其他用户执行权 (change mode)
 chmod ugo-rwx <file>  # 把所有权限关掉
@@ -23,6 +25,13 @@ finger <user-name>  # 查找用户信息
 find <dir> -name "xxx*"  # 查找 (如果要用通配符，就要加引号，否则可以不用)
 cat <file1> <file2>  # 拼接文件内容（也可以同时拼接多个文件）
 cat f1 f2 > f3  # 将输出发送到文件f3，可用>或>>。若f3已存在，则它原本的内容会被覆盖。若你只是想把内容加到原有内容后面，用>>，不要用>
+df  # 查看磁盘剩余空间 (disk free)
+df <dir>  # 查看磁盘剩余空间 (指定位置)
+ps aux  # 查看所有进程 (process status)
+grep xx yy # 用于匹配，在yy文件下寻找xx词
+ps aux | grep xxx
+kill <PID>  # 杀死进程，允许进程进行清理再结束
+kill -9 <PID>  # 强制杀死进程，进程立即结束
 权限码：第一位：- 表示文件；d 表示目录；后面接三组字符（所有者u，组g，其他人o），每组有3个字符
 -rw-r--r-- keeper prim 547 9:31 ch
 权限码 用户名 组名 文件大小 最后修改时间 文件名
@@ -34,3 +43,7 @@ rwx =读，写，执行（只有当文件是程序时才可以有执行权限）
 .. 表示父目录
 ~ 表示自己的home目录
 ~用户名 可指定其他用户的home目录。当~后面接/以外的东西，Linux会假定你在指其他用户的home目录
+1k-blocks  预留空间
+Linux只有一个目录树即/，不同于Windows里有C:\ D:\，等等。
+root可以当作Linux系统的User ID
+| 将一个指令的输出作为另一指令的输入(管道)
